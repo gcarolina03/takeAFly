@@ -13,7 +13,6 @@ const Travel = sequelize.define('travel', {
     defaultValue: 'private'
   }
 },
-
 {
   timestamps: false
 })

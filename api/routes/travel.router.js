@@ -1,11 +1,12 @@
 const travelRouter = require('express').Router()
+const { checkAuth, checkAdmin } = require('../../middlewares/auth')
 
 const { getAllTravels, getOneTravel, createTravel, updateTravel, deleteTravel } = require('../controllers/travel.controller')
 
-travelRouter.get('/', getAllTravels)
-travelRouter.get('/:id', getOneTravel)
-travelRouter.post('/', createTravel)
-travelRouter.put('/:id', updateTravel)
-travelRouter.delete('/:id', deleteTravel)
+travelRouter.get('/', checkAuth, getAllTravels)
+travelRouter.get('/:id', checkAuth, getOneTravel)
+travelRouter.post('/', checkAuth, createTravel)
+travelRouter.put('/:id', checkAuth, updateTravel)
+travelRouter.delete('/:id', checkAuth, deleteTravel)
 
 module.exports =  { travelRouter } 
