@@ -57,7 +57,7 @@ const deleteCategory = async (req, res) => {
             where: { id: req.params.id }
         })
         if(category){
-            return res.status(200).json('Error: Category deleted')
+            return res.status(200).json('Category deleted')
         } else {
             return res.status(404).send('Error: Category not found')
         }
