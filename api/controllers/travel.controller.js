@@ -55,12 +55,16 @@ const updateTravel = async (req, res) => {
 
 const deleteTravel = async (req, res) => {
 	try {
-		const actor = await Travel.destroy({
-			where: {
-				id: req.params.id,
-			},
-		})
-		if (actor) {
+		const travel = await Travel.findByPk(req.params.id)
+
+		if (travel) {
+			if(travel.userId === res.locals.user.id || res.locals.user.id === 'admin') {
+				await Travel.destroy({
+					where: {
+						id: req.params.id,
+					},
+				})
+			}
 			return res.status(200).json('Success: Travel deleted')
 		} else {
 			return res.status(404).send('Error: Travel not found')
@@ -70,10 +74,26 @@ const deleteTravel = async (req, res) => {
 	}
 }
 
+const showMyTravels = async (req, res) => {
+	try {
+		const travels = await Travel.findAll({
+			where: { userId: res.locals.user.id }
+		})
+		if (travels) {
+			return res.status(200).json( travels )
+		} else {
+			return res.status(404).send('No travels found')
+		}
+	} catch (error) {
+		res.status(500).send(error.message)
+	}
+}
+
 module.exports = {
     getAllTravels,
     getOneTravel,
     createTravel,
     updateTravel,
-    deleteTravel
+    deleteTravel,
+		showMyTravels
 }

@@ -66,4 +66,8 @@ const deleteUser = async (req, res) => {
   }
 }
 
-module.exports = { createUser, getUsers, getOneUser, updateUser, deleteUser }
+const showProfile = async (req, res) => {
+  return res.json(res.locals.user)
+}
+
+module.exports = { createUser, getUsers, getOneUser, updateUser, deleteUser, showProfile }

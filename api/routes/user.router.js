@@ -1,10 +1,8 @@
 const userRouter = require('express').Router();
 const { checkAuth, checkAdmin } = require('../../middlewares/auth')
-const { createUser, getUsers, getOneUser, updateUser, deleteUser } = require('../controllers/user.controller')
+const { createUser, getUsers, getOneUser, updateUser, deleteUser, showProfile } = require('../controllers/user.controller')
 
-userRouter.get('/profile', checkAuth, (req, res) => {
-  res.json(res.locals.user);
-})
+userRouter.get('/profile', checkAuth, showProfile)
 userRouter.get('/', checkAuth, checkAdmin, getUsers)
 userRouter.get('/:id', checkAuth, checkAdmin, getOneUser)
 

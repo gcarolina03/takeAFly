@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require('sequelize')
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
 	host: process.env.DB_HOST,
@@ -16,10 +16,15 @@ const connectDB = async () => {
 	}
 }
 
-const syncModels = async () => {
+const syncModels = async (value) => {
+	const state = {
+		alter: { alter: true },
+		force: { force: true },
+	}
+
 	try {
-		await sequelize.sync({ alter: true })
-		console.info('All models were synchronized successfully.')
+		await sequelize.sync(state[value] || '')
+		console.info(`All models were synchronized successfully. ${value || ''}`)
 	} catch (err) {
 		throw new Error(`models have not been synchronized, ${err}`)
 	}

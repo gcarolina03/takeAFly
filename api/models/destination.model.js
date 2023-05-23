@@ -13,6 +13,9 @@ const Destination = sequelize.define("destinations", {
   description: {
     type: DataTypes.TEXT
   },
+},
+{
+  timestamps: false
 })
 
 module.exports = { Destination }
