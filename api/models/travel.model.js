@@ -11,7 +11,7 @@ const Travel = sequelize.define('travel', {
   visibility: {
     type: DataTypes.ENUM('public', 'private'),
     defaultValue: 'private'
-    }
+  }
 },
 
 {
