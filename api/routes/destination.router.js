@@ -10,7 +10,7 @@ const {
 } = require('../controllers/destination.controller')
 
 destinationRouter.get('/', checkAuth, getAllDestination)
-destinationRouter.get('/category/:idCategory', getDestinationsByCategory)
+destinationRouter.get('/category/:idCategory', checkAuth, getDestinationsByCategory)
 destinationRouter.get('/:id', checkAuth, getOneDestination)
 
 destinationRouter.post('/', checkAuth, checkAdmin, createDestination)

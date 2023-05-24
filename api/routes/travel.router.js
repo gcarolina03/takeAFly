@@ -11,7 +11,7 @@ const {
   addUserToTravel,
   removeUserFromTravel } = require('../controllers/travel.controller')
 
-travelRouter.get('/', checkAuth, getAllTravels)
+travelRouter.get('/', checkAuth, checkAdmin, getAllTravels)
 travelRouter.get('/myTravels', checkAuth, showMyTravels)
 travelRouter.get('/:id', checkAuth, getOneTravel)
 

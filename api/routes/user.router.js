@@ -3,7 +3,7 @@ const { checkAuth, checkAdmin } = require('../../middlewares/auth')
 const { createUser, getUsers, getOneUser, updateUser, deleteUser, showProfile } = require('../controllers/user.controller')
 
 userRouter.get('/', checkAuth, checkAdmin, getUsers)
-userRouter.get('/profile', checkAuth, checkAdmin, showProfile)
+userRouter.get('/profile', checkAuth, showProfile)
 userRouter.get('/:id', checkAuth, checkAdmin, getOneUser)
 
 userRouter.post('/', checkAuth, checkAdmin, createUser)
