@@ -40,20 +40,17 @@ Feel free to explore the application and experiment with different features.
 | `/api/user`                                | Creates a new user                                            | Admin                 |
 | `/api/user/:id`                            | Updates information of a specific user                        | Admin                 |
 | `/api/user/:id`                            | Deletes a specific user                                       | Admin                 |
-|--------------------------------------------|---------------------------------------------------------------|-----------------------|
 | `/api/category`                            | Fetches a list of all categories                              | Logged user           |
 | `/api/category/:id`                        | Fetches details of a specific category                        | Admin                 |
 | `/api/category`                            | Creates a new category                                        | Admin                 |
 | `/api/category/:id`                        | Updates information of a specific category                    | Admin                 |
 | `/api/category/:id`                        | Deletes a specific category                                   | Admin                 |
-|--------------------------------------------|---------------------------------------------------------------|-----------------------|
 | `/api/destination`                         | Fetches a list of all destinations                            | Logged user           |
 | `/api/destination/category/:idCategory`    | Fetches a list of all destinations by specific category       | Logged user           |
 | `/api/destination/:id`                     | Fetches details of a specific destination                     | Logged user           |
 | `/api/destination`                         | Creates a new destination                                     | Admin                 |
 | `/api/destination/:id`                     | Updates information of a specific destination                 | Admin                 |
 | `/api/destination/:id`                     | Deletes a specific destination                                | Admin                 |
-|--------------------------------------------|---------------------------------------------------------------|-----------------------|
 | `/api/travel`                              | Fetches a list of all travels                                 | Admin                 |
 | `/api/travel/myTravels`                    | Fetches a list of all travels from the logged in user         | Logged user           |
 | `/api/travel/:id`                          | Fetches details of a specific travel                          | Logged user           |
