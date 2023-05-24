@@ -2,7 +2,15 @@ const { Travel } = require ('../models/travel.model.js')
 
 const getAllTravels = async (req, res) => {
 	try {
-		const travels = await Travel.findAll()
+		let travels = ""
+		if (res.locals.user.roles === 'admin') {
+			travels = await Travel.findAll()
+		} else {
+			travels = await Travel.findAll({
+				where: { visibility: 'public', }
+			})
+		}
+
 		if (travels) {
 			return res.status(200).json(travels)
 		} else {
@@ -15,9 +23,22 @@ const getAllTravels = async (req, res) => {
 
 const getOneTravel = async (req, res) => {
 	try {
-		const travel = await Travel.findByPk(req.params.id)
-		if (travel) {
-			return res.status(200).json(travel)
+		let travel = ""
+		if (res.locals.user.roles === 'admin') {
+			travel = await Travel.findAll({
+				where: { 
+					id: req.params.id, }
+			})
+		} else {
+			travel = await Travel.findAll({
+				where: { 
+					id: req.params.id,
+					visibility: 'public', }
+			})
+		}
+		
+		if (travel.length !== 0) {
+			return res.status(200).json(travel[0])
 		} else {
 			return res.status(404).send('Error: Travel not found')
 		}
@@ -28,6 +49,8 @@ const getOneTravel = async (req, res) => {
 
 const createTravel = async (req, res) => {
 	try {
+		if(!req.body.userId) { req.body.userId = res.locals.user.id }
+
 		const travel = await Travel.create(req.body)
 		return res.status(200).json({ message: 'Success: Travel created', travel: travel })
 	} catch (error) {
@@ -37,14 +60,18 @@ const createTravel = async (req, res) => {
 
 const updateTravel = async (req, res) => {
 	try {
-		const [travelExist, travel] = await Travel.update(req.body, {
-			returning: true,
-			where: {
-				id: req.params.id,
-			},
-		})
-        if (travelExist !== 0) {
-			return res.status(200).json({ message: 'Success: Travel updated', travel: travel })
+		const travel = await Travel.findByPk(req.params.id)
+
+		if (travel) {
+			if(travel.userId !== res.locals.user.id || res.locals.user.roles !== 'admin') {
+				return res.status(500).send('You are not authorized to access this resource')
+			}
+
+			const travel = await Travel.update(req.body, {
+					returning: true,
+					where: { id: req.params.id },
+				})
+				return res.status(200).json({ message: 'Success: Travel updated', travel: travel })
 		} else {
 			return res.status(404).send('Error: Travel not found')
 		}
@@ -58,13 +85,14 @@ const deleteTravel = async (req, res) => {
 		const travel = await Travel.findByPk(req.params.id)
 
 		if (travel) {
-			if(travel.userId === res.locals.user.id || res.locals.user.id === 'admin') {
-				await Travel.destroy({
-					where: {
-						id: req.params.id,
-					},
-				})
+			if(travel.userId !== res.locals.user.id || res.locals.user.id !== 'admin') {
+				return res.status(500).send('You are not authorized to access this resource')
 			}
+
+			await Travel.destroy({
+				where: { id: req.params.id },
+			})
+
 			return res.status(200).json('Success: Travel deleted')
 		} else {
 			return res.status(404).send('Error: Travel not found')

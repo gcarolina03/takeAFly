@@ -11,16 +11,16 @@ const createRelations = async () => {
   User.belongsToMany(Travel, { through: 'user_travel', timestamps: false })
   Travel.belongsToMany(User, { through: 'user_travel', timestamps: false })
 
-  // travels are multi categories
-  Category.belongsToMany(Travel, { through: 'travel_category', timestamps: false })
-  Travel.belongsToMany(Category, { through: 'travel_category', timestamps: false })
-
   // destination are multi categories
   Category.belongsToMany(Destination, { through: 'destination_category', timestamps: false })
   Destination.belongsToMany(Category, { through: 'destination_category', timestamps: false })
-
+  
   
   // ---------------- one to many ---------------------------
+  
+  // travels have one category
+  Category.hasMany(Travel)
+  Travel.belongsTo(Category)
 
   //travel have one destination
   Destination.hasMany(Travel)

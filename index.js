@@ -9,7 +9,7 @@ const app = express()
 const connectionAndSync = async () => {
   await connectDB()
   addRelationsToModels()
-  // await syncModels('alter')
+  //await syncModels('alter')
 }
 
 const start = async () => {

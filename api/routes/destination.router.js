@@ -3,15 +3,20 @@ const { checkAuth, checkAdmin } = require('../../middlewares/auth')
 const {
   getAllDestination,
   getOneDestination,
+  getDestinationsByCategory,
   createDestination,
   updateDestination,
-  deleteDestionation
+  deleteDestination
 } = require('../controllers/destination.controller')
 
-destinationRouter.get('/', getAllDestination)
-destinationRouter.get('/:id', getOneDestination)
+destinationRouter.get('/', checkAuth, getAllDestination)
+destinationRouter.get('/category/:idCategory', getDestinationsByCategory)
+destinationRouter.get('/:id', checkAuth, getOneDestination)
+
 destinationRouter.post('/', checkAuth, checkAdmin, createDestination)
+
 destinationRouter.put('/:id', checkAuth, checkAdmin, updateDestination)
-destinationRouter.delete('/:id', checkAuth, checkAdmin, deleteDestionation)
+
+destinationRouter.delete('/:id', checkAuth, checkAdmin, deleteDestination)
 
 module.exports = { destinationRouter }

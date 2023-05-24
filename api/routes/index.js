@@ -6,7 +6,7 @@ const { userRouter } = require('./user.router')
 const { destinationRouter } = require('./destination.router')
 
 router.use('/auth', authRouter);
-router.use('/categories', categoryRouter)
+router.use('/category', categoryRouter)
 router.use('/travel', travelRouter)
 router.use('/user', userRouter);
 router.use('/destination', destinationRouter)
