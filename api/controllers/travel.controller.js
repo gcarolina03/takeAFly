@@ -1,4 +1,6 @@
 const { Travel } = require ('../models/travel.model.js')
+const { User } = require ('../models/user.model.js')
+
 
 const getAllTravels = async (req, res) => {
 	try {
@@ -60,18 +62,19 @@ const createTravel = async (req, res) => {
 
 const updateTravel = async (req, res) => {
 	try {
-		const travel = await Travel.findByPk(req.params.id)
+		let travel = await Travel.findByPk(req.params.id)
 
 		if (travel) {
 			if(travel.userId !== res.locals.user.id || res.locals.user.roles !== 'admin') {
 				return res.status(500).send('You are not authorized to access this resource')
 			}
 
-			const travel = await Travel.update(req.body, {
+			travel = await Travel.update(req.body, {
 					returning: true,
 					where: { id: req.params.id },
 				})
-				return res.status(200).json({ message: 'Success: Travel updated', travel: travel })
+
+			return res.status(200).json({ message: 'Success: Travel updated', travel: travel })
 		} else {
 			return res.status(404).send('Error: Travel not found')
 		}
@@ -85,7 +88,7 @@ const deleteTravel = async (req, res) => {
 		const travel = await Travel.findByPk(req.params.id)
 
 		if (travel) {
-			if(travel.userId !== res.locals.user.id || res.locals.user.id !== 'admin') {
+			if(travel.userId !== res.locals.user.id || res.locals.user.roles !== 'admin') {
 				return res.status(500).send('You are not authorized to access this resource')
 			}
 
@@ -117,11 +120,62 @@ const showMyTravels = async (req, res) => {
 	}
 }
 
+const addUserToTravel = async (req, res) => {
+	try {
+		const travel = await Travel.findByPk(req.params.travelId)
+
+		if(travel) {
+			if(travel.visibility !== 'public') {
+				return res.status(500).send('You are not authorized to access this resource')
+			}
+
+			if(res.locals.user.roles === 'admin' || req.params.userId === res.locals.user.id ) {
+				const user = await User.findByPk(req.params.userId)
+				await travel.addUser(user)
+				return res.status(200).json('Success: User added to travel')
+			} else {
+				return res.status(500).send('You are not authorized to access this resource')
+			}
+
+		} else {
+			return res.status(404).send('No travel found')
+		}
+	} catch (error) {
+		res.status(500).send(error.message)
+	}
+}
+
+const removeUserFromTravel = async (req, res) => {
+	try {
+		const travel = await Travel.findByPk(req.params.travelId)
+
+		if(travel) {
+			if(travel.visibility !== "public") {
+				return res.status(500).send('You are not authorized to access this resource')
+			}
+
+			if(res.locals.user.roles === 'admin' || req.params.userId === res.locals.user.id ) {
+				const user = await User.findByPk(req.params.userId)
+				await travel.removeUser(user)
+				return res.status(200).json('Success: User removed to travel')
+			} else {
+				return res.status(500).send('You are not authorized to access this resource')
+			}
+		} else {
+			return res.status(404).send('No travel found')
+		}
+	} catch (error) {
+		res.status(500).send(error.message)
+	}
+}
+
 module.exports = {
     getAllTravels,
     getOneTravel,
     createTravel,
     updateTravel,
     deleteTravel,
-		showMyTravels
+		showMyTravels,
+		addUserToTravel,
+		removeUserFromTravel
 }
