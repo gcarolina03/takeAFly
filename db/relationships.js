@@ -19,15 +19,15 @@ const createRelations = async () => {
   // ---------------- one to many ---------------------------
   
   // travels have one category
-  Category.hasMany(Travel)
+  Category.hasMany(Travel, {onUpdate: 'CASCADE'})
   Travel.belongsTo(Category)
 
   //travel have one destination
-  Destination.hasMany(Travel)
+  Destination.hasMany(Travel, {onUpdate: 'CASCADE'})
   Travel.belongsTo(Destination)
 
   // travel have one user owner
-  User.hasMany(Travel)
+  User.hasMany(Travel, {onUpdate: 'CASCADE', onDelete: 'CASCADE'})
   Travel.belongsTo(User)
 }
 

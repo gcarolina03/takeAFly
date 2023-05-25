@@ -21,11 +21,11 @@ To run this application, make sure you have the following:
 
 Here are some usage examples to get you started:
 
-To search for destinations, use the search functionality and provide the desired criteria such as interests.
+- To search for destinations, use the search functionality and provide the desired criteria such as interests.
 
-Create a travel plan and specify whether it is public or private.
+- Create a travel plan and specify whether it is public or private.
 
-Registered users can join public travel plans.
+- Registered users can join public travel plans.
 
 Feel free to explore the application and experiment with different features.
 
@@ -51,14 +51,75 @@ Feel free to explore the application and experiment with different features.
 | `/api/destination`                         | Creates a new destination                                     | Admin                 |
 | `/api/destination/:id`                     | Updates information of a specific destination                 | Admin                 |
 | `/api/destination/:id`                     | Deletes a specific destination                                | Admin                 |
-| `/api/travel`                              | Fetches a list of all travels                                 | Admin                 |
+| `/api/travel`                              | Fetches a list of all travels (Admin can see privates)        | Logged user           |
 | `/api/travel/myTravels`                    | Fetches a list of all travels from the logged in user         | Logged user           |
+| `/api/travel/users/:travelId`              | Fetches a list of all users in the same public travel         | Logged user           |
 | `/api/travel/:id`                          | Fetches details of a specific travel                          | Logged user           |
 | `/api/travel`                              | Creates a new travel                                          | Logged user or admin  |
 | `/api/travel/:travelId/user/:userId`       | Add user to a public travel                                   | Logged user or admin  |
-| `/api/travel/:id`                          | Updates information of a specific travel                      | Owner user or admin   |
-| `/api/travel/:id`                          | Deletes a specific travel                                     | Owner user or admin   |
+| `/api/travel/:id`                          | Updates information of a specific travel                      | Admin                 |
+| `/api/travel/:id`                          | Deletes a specific travel                                     | Admin                 |
+| `/api/travel/user/:id`                     | Updates information of a specific travel (user owner)         | Owner user            |
+| `/api/travel/user/:id`                     | Deletes a specific travel (user owner)                        | Owner user            |
 | `/api/travel/:travelId/user/:userId`       | Remove user to a public travel                                | Logged user or admin  |
+
+
+## Data Model
+
+### Table "users" 
+| Column      | Type                    | Constraints                           |
+| ----------- | ----------------------- | ------------------------------------- |
+| id          | int                     | Primary Key, Not Null, Auto Increment |
+| first_name  | VARCHAR                 | Not Null                              |
+| last_name   | VARCHAR                 | Not Null                              |
+| email       | VARCHAR                 | Not Null, Unique                      |
+| username    | VARCHAR                 | Not Null                              |
+| password    | VARCHAR                 | Not Null                              |
+| description | VARCHAR                 | Not Null                              |
+| address     | VARCHAR                 |                                       |
+| birth_date  | DATE                    | Not Null                              |
+| roles       | ENUM('admin', 'user')   | default: user                         |
+
+
+### Table "categories" 
+| Column  | Type     | Constraints                           |
+| ------- | -------- | ------------------------------------- |
+| id      | int      | Primary Key, Not Null, Auto Increment |
+| title   | VARCHAR  | Not Null                              |
+
+
+### Table "destinations" 
+| Column     | Type    | Constraints                           |
+| ---------- | ------- | ------------------------------------- |
+| id         | int     | Primary Key, Not Null, Auto Increment |
+| country    | VARCHAR | Not Null                              |
+| city       | VARCHAR | Not Null                              |
+| description| TEXT    | Not Null                              |
+
+
+### Table "destination_category" 
+| Column         | Type | Constraints                           |
+| -------------- | ---- | ------------------------------------- |
+| destinationId  | int  | Not Null, References destinations(id) |
+| categoryId     | int  | Not Null, References categories(id)   |
+
+
+### Table "user_travel" 
+| Column    | Type | Constraints                      |
+| --------- | ---- | -------------------------------- |
+| userId    | int  | Not Null, References users(id)   |
+| travelId  | int  | Not Null, References travels(id) |
+
+
+### Table "travels" 
+| Column        | Type                        | Constraints                              |
+| ------------- | --------------------------- | ---------------------------------------- |
+| id            | int                         | Primary Key, Not Null, Auto Increment    |
+| date          | DATE                        | Not Null                                 |
+| budget        | FLOAT(10,2)                 |                                          |
+| visibility    | ENUM('public', 'private')   | default: private                         |
+| id_category   | int                         | Not Null, References categories(id)      |
+| userId        | int                         | Not Null, References users(id)           |
 
 
 ## Authors
