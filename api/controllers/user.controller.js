@@ -33,10 +33,6 @@ const getOneUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    if (req.params.id !== res.locals.user.id || res.locals.user.roles !== 'admin') {
-			return res.status(500).send('You are not authorized to access this resource')
-    }
-
     if(req.body.password) { req.body.password = bcrypt.hashSync(req.body.password, 10) }
 
 		const [userExist, user] = await User.update(req.body, {
@@ -56,10 +52,6 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    if (req.params.id !== res.locals.user.id || res.locals.user.roles !== 'admin') {
-			return res.status(500).send('You are not authorized to access this resource')
-    }
-    
     const user = await User.destroy({
 			where: { id: req.params.id },
 		})
@@ -74,12 +66,4 @@ const deleteUser = async (req, res) => {
   }
 }
 
-const showProfile = async (req, res) => {
-  try {
-    return res.json( res.locals.user )
-  } catch (err) {
-    return res.status(404).send('Error: User not found') 
-  }
-}
-
-module.exports = { createUser, getUsers, getOneUser, updateUser, deleteUser, showProfile }
+module.exports = { createUser, getUsers, getOneUser, updateUser, deleteUser }

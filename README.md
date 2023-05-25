@@ -34,34 +34,37 @@ Feel free to explore the application and experiment with different features.
 |--------------------------------------------|---------------------------------------------------------------|-----------------------|
 | `/api/signup`                              | Creates a new user account                                    | Guest                 |
 | `/api/login`                               | Authenticates user credentials and generates a session token  | Guest                 |
-| `/api/user`                                | Fetches a list of all users                                   | Admin                 |
-| `/api/user/profile`                        | Fetches details of log in user                                | Logged user           |
-| `/api/user/:id`                            | Fetches details of a specific user                            | Admin                 |
-| `/api/user`                                | Creates a new user                                            | Admin                 |
-| `/api/user/:id`                            | Updates information of a specific user                        | Admin                 |
-| `/api/user/:id`                            | Deletes a specific user                                       | Admin                 |
-| `/api/category`                            | Fetches a list of all categories                              | Logged user           |
-| `/api/category/:id`                        | Fetches details of a specific category                        | Admin                 |
-| `/api/category`                            | Creates a new category                                        | Admin                 |
-| `/api/category/:id`                        | Updates information of a specific category                    | Admin                 |
-| `/api/category/:id`                        | Deletes a specific category                                   | Admin                 |
-| `/api/destination`                         | Fetches a list of all destinations                            | Logged user           |
-| `/api/destination/category/:idCategory`    | Fetches a list of all destinations by specific category       | Logged user           |
-| `/api/destination/:id`                     | Fetches details of a specific destination                     | Logged user           |
-| `/api/destination`                         | Creates a new destination                                     | Admin                 |
-| `/api/destination/:id`                     | Updates information of a specific destination                 | Admin                 |
-| `/api/destination/:id`                     | Deletes a specific destination                                | Admin                 |
-| `/api/travel`                              | Fetches a list of all travels (Admin can see privates)        | Logged user           |
-| `/api/travel/myTravels`                    | Fetches a list of all travels from the logged in user         | Logged user           |
-| `/api/travel/users/:travelId`              | Fetches a list of all users in the same public travel         | Logged user           |
-| `/api/travel/:id`                          | Fetches details of a specific travel                          | Logged user           |
-| `/api/travel`                              | Creates a new travel                                          | Logged user or admin  |
-| `/api/travel/:travelId/user/:userId`       | Add user to a public travel                                   | Logged user or admin  |
-| `/api/travel/:id`                          | Updates information of a specific travel                      | Admin                 |
-| `/api/travel/:id`                          | Deletes a specific travel                                     | Admin                 |
-| `/api/travel/user/:id`                     | Updates information of a specific travel (user owner)         | Owner user            |
-| `/api/travel/user/:id`                     | Deletes a specific travel (user owner)                        | Owner user            |
-| `/api/travel/:travelId/user/:userId`       | Remove user to a public travel                                | Logged user or admin  |
+| `/api/users`                               | Fetches a list of all users                                   | Admin                 |
+| `/api/users/:id`                           | Fetches details of a specific user                            | Admin                 |
+| `/api/users`                               | Creates a new user                                            | Admin                 |
+| `/api/users/:id`                           | Updates information of a specific user                        | Admin                 |
+| `/api/users/:id`                           | Deletes a specific user                                       | Admin                 |
+| `/api/categories`                          | Fetches a list of all categories                              | Logged user           |
+| `/api/categories/:id`                      | Fetches details of a specific category                        | Admin                 |
+| `/api/categories`                          | Creates a new category                                        | Admin                 |
+| `/api/categories/:id`                      | Updates information of a specific category                    | Admin                 |
+| `/api/categories/:id`                      | Deletes a specific category                                   | Admin                 |
+| `/api/destinations`                        | Fetches a list of all destinations                            | Logged user           |
+| `/api/destinations/category/:idCategory`   | Fetches a list of all destinations by specific category       | Logged user           |
+| `/api/destinations/:id`                    | Fetches details of a specific destination                     | Logged user           |
+| `/api/destinations`                        | Creates a new destination                                     | Admin                 |
+| `/api/destinations/:id`                    | Updates information of a specific destination                 | Admin                 |
+| `/api/destinations/:id`                    | Deletes a specific destination                                | Admin                 |
+| `/api/travels`                             | Fetches a list of all travels (Admin can see privates)        | Logged user           |
+| `/api/travels/:travelId/users`             | Fetches a list of all users in the same public travel         | Logged user           |
+| `/api/travels/:id`                         | Fetches details of a specific travel                          | Logged user           |
+| `/api/travels`                             | Creates a new travel                                          | Logged user           |
+| `/api/travels/:travelId/user/:userId`      | Add user to a public travel                                   | Admin                 |
+| `/api/travels/:id`                         | Updates information of a specific travel                      | Admin                 |
+| `/api/travels/:id`                         | Deletes a specific travel                                     | Admin                 |
+| `/api/travels/:travelId/user/:userId`      | Remove user to a public travel                                | Admin                 |
+| `/api/profile`                             | Fetches details of log in user                                | Logged user           |
+| `/api/profile/travels`                     | Fetches a list of all travels from the logged in user         | Logged user           |
+| `/api/profile/travel/:travelId/user`       | Add user to a public travel                                   | Logged user           |
+| `/api/profile/travel/:id`                  | Updates information of a specific travel (user owner)         | Owner user            |
+| `/api/profile`                             | Updates information of log in user                            | Logged user           |
+| `/api/profile/travel/:travelId/user`       | Delete user to a public travel                                | Logged user           |
+| `/api/profile/travel/:id`                  | Deletes a specific travel (user owner)                        | Owner user            |
 
 
 ## Data Model
