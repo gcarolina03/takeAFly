@@ -31,7 +31,11 @@ const getOneDestination = async (req, res) => {
 const getDestinationsByCategory = async (req, res) => {
   try {
     const destination = await Destination.findAll({
-      include: { model: Category, where: { id: req.params.idCategory }},
+      include: { model: Category, where: { id: req.params.idCategory }, 
+      through: { attributes: [] },
+      attributes: ['title'],
+      },
+      
     })
     
     if(destination) {
