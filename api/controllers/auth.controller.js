@@ -10,7 +10,7 @@ const signup = async(req, res) => {
         const user = await User.create(req.body)
         // create a JSON Web Token
         const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' })
-        res.status(200).json( token )
+        res.status(200).json( {token} )
     } catch (err) {
         console.log(err)
         res.status(500).send(`Error: User not created`)
@@ -32,7 +32,7 @@ const login = async (req,res) => {
             
             //ok! create a JSON Web Token
             const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' })
-            res.status(200).json( token )
+            res.status(200).json( {token} )
         })
     } catch (err) {
         console.log(err)
