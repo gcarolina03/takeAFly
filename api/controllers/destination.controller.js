@@ -95,11 +95,31 @@ const deleteDestination = async (req, res) => {
   }
 }
 
+const getDestinationsByAirport = async (req, res) => {
+  try {
+    const destinations = await Destination.findAll({
+      include: { model: Category, where: { id: req.params.airportId }, 
+      through: { attributes: [] },
+      attributes: ['title'],
+      },
+    })
+
+    if (destinations) {
+      return res.status(200).json(destinations);
+    } else {
+      return res.status(404).send('Destinations not found for the given airport');
+    }
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+};
+
 module.exports = {
   getAllDestination,
   getOneDestination,
   createDestination,
   updateDestination,
   deleteDestination,
-  getDestinationsByCategory
+  getDestinationsByCategory,
+  getDestinationsByAirport
 }

@@ -2,6 +2,7 @@ const { User } = require('../api/models/user.model')
 const { Travel } = require('../api/models/travel.model')
 const { Category } = require('../api/models/category.model')
 const { Destination } = require('../api/models/destination.model')
+const { Airport } = require('../api/models/airport.model')
 
 
 const createRelations = async () => {
@@ -17,10 +18,6 @@ const createRelations = async () => {
   
   
   // ---------------- one to many ---------------------------
-  
-  // travels have one category
-  Category.hasMany(Travel, {onUpdate: 'CASCADE'})
-  Travel.belongsTo(Category)
 
   //travel have one destination
   Destination.hasMany(Travel, {onUpdate: 'CASCADE'})
@@ -29,6 +26,14 @@ const createRelations = async () => {
   // travel have one user owner
   User.hasMany(Travel, {onUpdate: 'CASCADE', onDelete: 'CASCADE'})
   Travel.belongsTo(User)
+
+  // Destination have one airport
+  Airport.hasMany(Destination, {onUpdate: 'CASCADE', onDelete: 'CASCADE'})
+  Destination.belongsTo(Airport)
+
+  // travel has one departure airport
+  Airport.hasMany(Travel, { as: 'departureAirport' });
+  Travel.belongsTo(Airport, { as: 'departureAirport' });
 }
 
 module.exports = createRelations

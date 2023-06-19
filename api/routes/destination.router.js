@@ -6,11 +6,14 @@ const {
   getDestinationsByCategory,
   createDestination,
   updateDestination,
-  deleteDestination
+  deleteDestination,
+  getDestinationsByAirport
 } = require('../controllers/destination.controller')
 
 destinationRouter.get('/', checkAuth, getAllDestination)
 destinationRouter.get('/category/:idCategory', checkAuth, getDestinationsByCategory)
+destinationRouter.get('/category/:airportId', checkAuth, getDestinationsByAirport)
+
 destinationRouter.get('/:id', checkAuth, getOneDestination)
 
 destinationRouter.post('/', checkAuth, checkAdmin, createDestination)

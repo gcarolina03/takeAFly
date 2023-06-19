@@ -5,6 +5,8 @@ const { travelRouter } = require('./travel.router.js')
 const { userRouter } = require('./user.router')
 const { destinationRouter } = require('./destination.router')
 const { profileRouter } = require('./profile.router')
+const { airportRouter } = require('./airport.router')
+
 
 
 router.use('/auth', authRouter);
@@ -13,5 +15,6 @@ router.use('/travels', travelRouter)
 router.use('/users', userRouter);
 router.use('/destinations', destinationRouter)
 router.use('/profile', profileRouter)
+router.use('/airport', airportRouter)
 
 module.exports = { router }
