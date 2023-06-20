@@ -13,7 +13,7 @@ const getAllAirports = async (req, res) => {
     }
 }
 
-const creatAirport = async (req, res) => {
+const createAirport = async (req, res) => {
     try {
         const airport = await Airport.create(req.body)
         return res.status(200).json({message: 'Airport created', airport})
@@ -53,4 +53,4 @@ const deleteAirport = async (req, res) => {
     }
 }
 
-module.exports = { getAllAirports, creatAirport, updateAirport, deleteAirport }
+module.exports = { getAllAirports, createAirport, updateAirport, deleteAirport }

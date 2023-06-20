@@ -28,12 +28,12 @@ const createRelations = async () => {
   Travel.belongsTo(User)
 
   // Destination have one airport
-  Airport.hasMany(Destination, {onUpdate: 'CASCADE', onDelete: 'CASCADE'})
+  Airport.hasMany(Destination)
   Destination.belongsTo(Airport)
 
   // travel has one departure airport
-  Airport.hasMany(Travel, { as: 'departureAirport' });
-  Travel.belongsTo(Airport, { as: 'departureAirport' });
+  Airport.hasMany(Travel);
+  Travel.belongsTo(Airport);
 }
 
 module.exports = createRelations

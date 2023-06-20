@@ -36,10 +36,9 @@ const showMyTravels = async (req, res) => {
 	try {
 		const travels = await res.locals.user.getTravels({ 
 			include: [ 
-				{ model: Category, attributes: ['title'] }, 
 				{ model: Destination, attributes: ['city'] },
 			], 
-			attributes: { exclude: ['categoryId', 'destinationId'] } ,
+			attributes: { exclude: ['destinationId'] } ,
 			joinTableAttributes: []
 		})
 		if (travels) {

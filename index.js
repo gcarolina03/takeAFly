@@ -11,7 +11,7 @@ const app = express()
 const connectionAndSync = async () => {
   await connectDB()
   addRelationsToModels()
-  //await syncModels('force')
+  await syncModels('alter')
 }
 
 const start = async () => {

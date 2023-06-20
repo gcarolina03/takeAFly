@@ -10,23 +10,21 @@ const getAllTravels = async (req, res) => {
 		if (res.locals.user.roles === 'admin') {
 			travels = await Travel.findAll({
 				include: [ 
-				{ model: Category, attributes: ['title'] }, 
 				{ model: Destination, attributes: ['city'] },
 			], 
-			attributes: { exclude: ['categoryId', 'destinationId'] }
+			attributes: { exclude: ['destinationId'] }
 			}) 
 			
 		} else {
 			travels = await Travel.findAll({ 
 				where: { visibility: 'public', },
 				include: [ 
-				{ model: Category, attributes: ['title'] }, 
 				{ model: Destination, attributes: ['city'] },
 			], 
-			attributes: { exclude: ['categoryId', 'destinationId'] }
+			attributes: { exclude: ['destinationId'] }
 			})
 		}
-
+		console.log(travels)
 
 		if (travels) {
 			return res.status(200).json(travels)
@@ -70,7 +68,7 @@ const createTravel = async (req, res) => {
 
 		const travel = await Travel.create(req.body)
 		await travel.addUser(res.locals.user)
-		return res.status(200).json({ message: 'Success: Travel created', travel: travel })
+		return res.status(200).json({ message: 'Success', travel: travel })
 	} catch (error) {
 		res.status(500).send(error.message)
 	}
