@@ -10,7 +10,7 @@ const getAllTravels = async (req, res) => {
 		if (res.locals.user.roles === 'admin') {
 			travels = await Travel.findAll({
 				include: [ 
-				{ model: Destination, attributes: ['city'] },
+				{ model: Destination, attributes: ['city', 'imgUrl'] },
 			], 
 			attributes: { exclude: ['destinationId'] }
 			}) 
@@ -19,7 +19,7 @@ const getAllTravels = async (req, res) => {
 			travels = await Travel.findAll({ 
 				where: { visibility: 'public', },
 				include: [ 
-				{ model: Destination, attributes: ['city'] },
+				{ model: Destination, attributes: ['city', 'imgUrl'] },
 			], 
 			attributes: { exclude: ['destinationId'] }
 			})

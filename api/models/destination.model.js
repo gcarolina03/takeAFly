@@ -12,6 +12,9 @@ const Destination = sequelize.define("destinations", {
   },
   description: {
     type: DataTypes.TEXT
+  },
+  imgUrl: {
+    type: DataTypes.STRING
   }
 },
 {
