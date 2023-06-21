@@ -17,7 +17,7 @@ const getAllDestination = async (req,res) => {
 
 const getOneDestination = async (req, res) => {
   try {
-    const destination = await Destination.findByPk(req.params.id)
+    const destination = await Destination.findByPk(req.params.id, {include: Category} )
     if(destination){
       return res.status(200).json(destination)
     } else {
