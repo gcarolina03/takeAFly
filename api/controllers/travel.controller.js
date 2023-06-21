@@ -2,6 +2,7 @@ const { Travel } = require ('../models/travel.model.js')
 const { User } = require ('../models/user.model.js')
 const { Category } = require ('../models/category.model.js')
 const { Destination } = require ('../models/destination.model.js')
+const { Airport } = require('../models/airport.model.js')
 
 
 const getAllTravels = async (req, res) => {
@@ -12,7 +13,8 @@ const getAllTravels = async (req, res) => {
 				include: [ 
 				{ model: Destination, attributes: ['city', 'imgUrl'] },
 			], 
-			attributes: { exclude: ['destinationId'] }
+			attributes: { exclude: ['destinationId'] },
+			order: [['departure_date', 'DESC']]
 			}) 
 			
 		} else {
@@ -21,7 +23,8 @@ const getAllTravels = async (req, res) => {
 				include: [ 
 				{ model: Destination, attributes: ['city', 'imgUrl'] },
 			], 
-			attributes: { exclude: ['destinationId'] }
+			attributes: { exclude: ['destinationId'] },
+			order: [['departure_date', 'DESC']]
 			})
 		}
 		console.log(travels)
@@ -42,14 +45,31 @@ const getOneTravel = async (req, res) => {
 		if (res.locals.user.roles === 'admin') {
 			travel = await Travel.findAll({
 				where: { 
-					id: req.params.id, }
+					id: req.params.id, },
+					include: [ 
+				{ model: Destination, 
+					attributes: ['city', 'imgUrl'],
+					include: [{ model: Category, attributes: ["title"] }]},
+				{ model: Airport, 
+				attributes: ['code',]},
+			], 
+			attributes: { exclude: ['destinationId', 'airportId'] },
 			})
 		} else {
 			travel = await Travel.findAll({
 				where: { 
 					id: req.params.id,
-					visibility: 'public', }
+					visibility: 'public', },
+					include: [ 
+				{ model: Destination, 
+					attributes: ['city', 'imgUrl'],
+					include: [{ model: Category, attributes: ["title"] }]},
+				{ model: Airport, 
+				attributes: ['code',]},
+			], 
+			attributes: { exclude: ['destinationId', 'airportId'] },
 			})
+
 		}
 		
 		if (travel.length !== 0) {

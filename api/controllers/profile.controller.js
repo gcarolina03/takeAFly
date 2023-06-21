@@ -39,7 +39,8 @@ const showMyTravels = async (req, res) => {
 				{ model: Destination, attributes: ['city', 'imgUrl'] },
 			], 
 			attributes: { exclude: ['destinationId'] } ,
-			joinTableAttributes: []
+			joinTableAttributes: [],
+			order: [['departure_date', 'DESC']]
 		})
 		if (travels) {
 			return res.status(200).json( travels )
