@@ -14,7 +14,7 @@ const {
 profileRouter.get('/', checkAuth, showProfile)
 profileRouter.get('/travels', checkAuth, showMyTravels)
 
-profileRouter.post('/travel/:travelId/user', checkAuth, addToTravel)
+profileRouter.get('/travel/:travelId/user', checkAuth, addToTravel)
 
 profileRouter.put('/travel/:id', checkAuth, updateMyTravel)
 profileRouter.put('/', checkAuth, updateMyUser)

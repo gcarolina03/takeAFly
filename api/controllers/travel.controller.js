@@ -28,8 +28,7 @@ const getAllTravels = async (req, res) => {
 				{ model: Destination, 
 					attributes: ['city', 'imgUrl'],
 					include: [{ model: Category, attributes: ['id',"title"] }]},
-				{ model: Airport, 
-				attributes: ['code',]}
+				{ model: Airport,  attributes: ['code',]},
 			], 
 			attributes: { exclude: ['destinationId'] },
 			order: [['departure_date', 'DESC']]
@@ -58,8 +57,8 @@ const getOneTravel = async (req, res) => {
 				{ model: Destination, 
 					attributes: ['city', 'imgUrl'],
 					include: [{ model: Category, attributes: ["title"] }]},
-				{ model: Airport, 
-				attributes: ['code',]},
+				{ model: Airport, attributes: ['code',]},
+				{ model: User }
 			], 
 			attributes: { exclude: ['destinationId', 'airportId'] },
 			})
@@ -72,8 +71,8 @@ const getOneTravel = async (req, res) => {
 				{ model: Destination, 
 					attributes: ['city', 'imgUrl'],
 					include: [{ model: Category, attributes: ["title"] }]},
-				{ model: Airport, 
-				attributes: ['code',]},
+				{ model: Airport, attributes: ['code',]},
+				{ model: User , attributes: ['id']}
 			], 
 			attributes: { exclude: ['destinationId', 'airportId'] },
 			})
