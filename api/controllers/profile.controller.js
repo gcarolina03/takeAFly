@@ -16,6 +16,7 @@ const showProfile = async (req, res) => {
 const updateMyUser = async (req, res) => {
   try {
     if(req.body.password) { req.body.password = bcrypt.hashSync(req.body.password, 10) }
+		if(req.body.email) { delete req.body.email }
 
 		const [userExist, user] = await User.update(req.body, {
 			returning: true,
