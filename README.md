@@ -2,6 +2,17 @@
 
 Take a Fly is the backend application for a travel destination search platform. It allows users to search for destinations based on specific criteria such as date, budget, and interests. Users can create travel plans and select whether they are public or private. If a travel plan is public, other registered users can view and join the travel if their interests align and the dates are compatible.
 
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage and Endpoints](#usage-and-endpoints)
+- [Data Model](#data-model)
+- [Authors](#authors)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [Project Link](#project-link)
+- [License](#license)
+
 
 ## Prerequisites
 
@@ -168,7 +179,7 @@ If you would like to contribute to Take a Fly, please submit a pull request with
 
 ## Project Link
 
-You can find the project on GitHub at: https://github.com/gcarolina03/takeAFly
+You can find the project on GitHub at: https://github.com/gcarolina03/takeAFly-backend
 
 
 ## License
