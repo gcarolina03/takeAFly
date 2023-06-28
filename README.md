@@ -44,8 +44,13 @@ Feel free to explore the application and experiment with different features.
 | `/api/categories`                          | Creates a new category                                        | Admin                 |
 | `/api/categories/:id`                      | Updates information of a specific category                    | Admin                 |
 | `/api/categories/:id`                      | Deletes a specific category                                   | Admin                 |
+| `/api/airport`                             | Fetches a list of all airports                                | Logged user           |
+| `/api/airport`                             | Creates a new airport                                         | Admin                 |
+| `/api/airport/:id`                         | Updates information of a specific airport                     | Admin                 |
+| `/api/airport/:id`                         | Deletes a specific airport                                    | Admin                 |
 | `/api/destinations`                        | Fetches a list of all destinations                            | Logged user           |
 | `/api/destinations/category/:idCategory`   | Fetches a list of all destinations by specific category       | Logged user           |
+| `/api/destinations/category/:airportId`   | Fetches a list of all destinations by specific airport         | Logged user           |
 | `/api/destinations/:id`                    | Fetches details of a specific destination                     | Logged user           |
 | `/api/destinations`                        | Creates a new destination                                     | Admin                 |
 | `/api/destinations/:id`                    | Updates information of a specific destination                 | Admin                 |
@@ -91,6 +96,15 @@ Feel free to explore the application and experiment with different features.
 | title   | VARCHAR  | Not Null                              |
 
 
+### Table "airports" 
+| Column        | Type                        | Constraints                              |
+| ------------- | --------------------------- | ---------------------------------------- |
+| id            | int                         | Primary Key, Not Null, Auto Increment    |
+| name          | VARCHAR                     | Not Null                                 |
+| code          | VARCHAR                     | Not Null                                 |
+| city          | VARCHAR                     | Not Null                                 |
+
+
 ### Table "destinations" 
 | Column     | Type    | Constraints                           |
 | ---------- | ------- | ------------------------------------- |
@@ -98,6 +112,8 @@ Feel free to explore the application and experiment with different features.
 | country    | VARCHAR | Not Null                              |
 | city       | VARCHAR | Not Null                              |
 | description| TEXT    | Not Null                              |
+| imgUrl     | VARCHAR |                                       |
+| airportId  | INT     | Not Null, References airport(id)      |
 
 
 ### Table "destination_category" 
@@ -118,11 +134,13 @@ Feel free to explore the application and experiment with different features.
 | Column        | Type                        | Constraints                              |
 | ------------- | --------------------------- | ---------------------------------------- |
 | id            | int                         | Primary Key, Not Null, Auto Increment    |
-| date          | DATE                        | Not Null                                 |
+| departure_date| DATE                        | Not Null                                 |
+| return_date   | DATE                        | Not Null                                 |
 | budget        | FLOAT(10,2)                 |                                          |
 | visibility    | ENUM('public', 'private')   | default: private                         |
-| id_category   | int                         | Not Null, References categories(id)      |
+| destinationId | int                         | Not Null, References destination(id)     |
 | userId        | int                         | Not Null, References users(id)           |
+| airportId     | int                         | Not Null, References airport(id)         |
 
 
 ## Authors
